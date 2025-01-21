@@ -10,9 +10,27 @@ class ChatController extends Controller
     {
         $message = strtolower($request->input('message'));
 
-        // Validasi pesan harus mengandung kata "kia"
+        // Logika untuk jawaban "iya" tanpa perlu kata "kia"
+        if (preg_match('/^iya+a*$/', $message)) {
+            $length = strlen($message) - 3; // Panjang tambahan 'a' setelah "iya"
+            if ($length == 0) {
+                return response()->json(['response' => 'ko iya aja sii']);
+            } elseif ($length == 1) {
+                return response()->json(['response' => 'yahh iya nya cuman 2']);
+            } else {
+                return response()->json(['response' => 'yesss iyaa nya banyak tapi ko iya doangg ada apa']);
+            }
+        }
+
+        // Validasi pesan harus mengandung kata "kia" untuk respons lain
         if (!str_contains($message, 'kia')) {
             return response()->json(['error' => 'Pesan harus mengandung kata "kia"']);
+        }
+
+        // Cek variasi morning kiaa dan variasi lainnya
+        if (preg_match('/^(good\s*)?morn(ing|nn|n|g+)?\s*kia+[aj]*$/i', $message) ||
+            preg_match('/^god+d+\s*morn(ing|nn|n|g+)?\s*kia+[aj]*$/i', $message)) {
+            return response()->json(['response' => 'morningggg zahra cantiku']);
         }
 
         // Array respons untuk berbagai pertanyaan
@@ -22,66 +40,17 @@ class ChatController extends Controller
             'halo kia' => 'Hai Zaraaaaaa! kalo kamu cuman jawab iya doang gaakan aku bantuu',
             'kia lagi apa?' => 'aku lagi nungguin kamuuuuuuu',
             'kia udah makan belum?' => 'belummm ahh da gapernah laper',
-
-
+            'kia bisa bantu aku ga?'  => 'bolehh kenapa araa cantikk?',
+            'kia bisa tolong aku ga?' => 'bolehh kenapa araa cantikk?',
+            'kia aku mau curhat' => 'bolehh kenapa araa cantikk?',
 
             // Informasi Program Studi
-            'kia program studi apa saja' => 'STIKES memiliki program studi D3 Kebidanan dan D4 Kebidanan',
-            'kia jurusan apa saja' => 'Di STIKES tersedia jurusan D3 Kebidanan dan D4 Kebidanan',
-
-            // Informasi Pendaftaran
-            'kia cara daftar' => 'Untuk mendaftar di STIKES, kamu bisa:
-1. Datang langsung ke kampus
-2. Daftar online melalui website
-3. Siapkan dokumen: Ijazah, SKHU, KTP, Kartu Keluarga
-4. Bayar biaya pendaftaran',
-
-            // Informasi Biaya
-            'kia biaya kuliah' => 'Biaya kuliah per semester:
-- D3 Kebidanan: Rp 4.500.000
-- D4 Kebidanan: Rp 5.500.000
-Tersedia program cicilan dan beasiswa',
-
-            // Informasi Fasilitas
-            'kia fasilitas apa saja' => 'Fasilitas STIKES meliputi:
-- Laboratorium Kebidanan lengkap
-- Perpustakaan
-- WiFi
-- Ruang Praktik
-- Klinik
-- Aula',
-
-            // Informasi Akreditasi
-            'kia akreditasi' => 'Program Studi Kebidanan terakreditasi B oleh BAN-PT',
-
-            // Informasi Prospek Kerja
-            'kia prospek kerja' => 'Lulusan dapat bekerja di:
-- Rumah Sakit
-- Klinik
-- Puskesmas
-- Bidan Praktik Mandiri
-- Dosen
-- Peneliti Kesehatan',
-
-            // Informasi Masa Studi
-            'kia berapa lama kuliah' => 'Lama studi:
-- D3 Kebidanan: 3 tahun
-- D4 Kebidanan: 4 tahun',
-
-            // Informasi Praktik
-            'kia tempat praktik dimana' => 'Praktik dilaksanakan di:
-- RS Mitra STIKES
-- Puskesmas
-- Klinik Bersalin
-- BPM (Bidan Praktik Mandiri)',
-
-            // Informasi Kompetensi
-            'kia kompetensi lulusan' => 'Kompetensi lulusan:
-- Asuhan Kebidanan
-- Penanganan Persalinan Normal
-- Perawatan Ibu dan Anak
-- Konseling KB
-- Deteksi Dini Komplikasi'
+            'kia aku mau nanya kuliahan' => 'bolehh araaaa, mau nanya apaan nihh',
+            'apa itu osce?' => 'OSCE adalah ujian praktik untuk menilai keterampilan klinis mahasiswa kebidanan dalam skenario yang menyerupai situasi nyata. Mahasiswa harus menunjukkan kemampuan melakukan prosedur sesuai standar.',
+            'bagaimana langkah langkah pemeriksaan leopold?' => 'Leopold I: Palpasi bagian fundus untuk menentukan bagian janin (kepala atau bokong).
+                        Leopold II: Palpasi di sisi perut ibu untuk menentukan posisi punggung janin.
+                        Leopold III: Palpasi bagian bawah rahim untuk menentukan bagian janin yang akan keluar lebih dulu.
+                        Leopold IV: Palpasi lebih dalam ke arah pelvis untuk memastikan posisi kepala janin.',
         ];
 
         // Cari jawaban yang paling cocok
@@ -93,17 +62,7 @@ Tersedia program cicilan dan beasiswa',
 
         // Jika tidak ada jawaban yang cocok
         return response()->json([
-            'response' => 'Maaf, saya belum bisa menjawab pertanyaan tersebut.
-Silakan tanya tentang:
-- Program studi
-- Cara pendaftaran
-- Biaya kuliah
-- Fasilitas kampus
-- Akreditasi
-- Prospek kerja
-- Masa studi
-- Tempat praktik
-- Kompetensi lulusan'
+            'response' => 'Maaf, aku belum nambahin respon nya, nanya yg lain deh:(('
         ]);
     }
 }

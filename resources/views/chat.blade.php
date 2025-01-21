@@ -176,17 +176,16 @@
         <div class="chat-body" id="chat-body">
             <div class="message-container">
                 <div class="message bot-message">
-                    Halo! Saya KIA Assistant. Saya siap membantu menjawab pertanyaan seputar STIKES Kebidanan.
-                    Silakan tanyakan apapun dengan menyertakan kata "kia" dalam pertanyaan Anda.
+                    Halo! Aku KIA Assistant. Aku siap bantuin kamu, kapan pun kamu mau Zahra
                 </div>
             </div>
         </div>
 
         <div class="suggestions">
-            <div class="suggestion-chip" onclick="setMessage('kia program studi')">Program Studi</div>
-            <div class="suggestion-chip" onclick="setMessage('kia biaya kuliah')">Biaya Kuliah</div>
-            <div class="suggestion-chip" onclick="setMessage('kia fasilitas')">Fasilitas</div>
-            <div class="suggestion-chip" onclick="setMessage('kia prospek kerja')">Prospek Kerja</div>
+            <div class="suggestion-chip" onclick="setMessage('kia aku mau nanya kuliahan')">Seputar Kuliahan</div>
+            <div class="suggestion-chip" onclick="setMessage('kia aku pengen curhat')">Seputar Teman Curhat</div>
+            <div class="suggestion-chip" onclick="setMessage('kia aku ngeluh')">Seputar Keluhan</div>
+            <div class="suggestion-chip" onclick="setMessage('kia aku pengen nanya nanya kerja')">Seputar Kerja </div>
         </div>
 
         <div class="chat-input">
